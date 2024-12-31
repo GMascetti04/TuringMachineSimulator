@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/TuringMachineSimulator/static/css/main.e1e7cd4a.css",
-    "main.js": "/TuringMachineSimulator/static/js/main.2fd7d8b1.js",
+    "main.css": "/TuringMachineSimulator/static/css/main.b104f27c.css",
+    "main.js": "/TuringMachineSimulator/static/js/main.5364bdd9.js",
     "static/js/592.7f72a991.chunk.js": "/TuringMachineSimulator/static/js/592.7f72a991.chunk.js",
     "static/media/KaTeX_AMS-Regular.ttf": "/TuringMachineSimulator/static/media/KaTeX_AMS-Regular.853be92419a6c3766b9a.ttf",
     "static/media/KaTeX_Main-Regular.ttf": "/TuringMachineSimulator/static/media/KaTeX_Main-Regular.9eba1d77abcf2aa6e94e.ttf",
@@ -65,12 +65,12 @@
     "static/media/KaTeX_Size3-Regular.woff2": "/TuringMachineSimulator/static/media/KaTeX_Size3-Regular.e1951519f6f0596f7356.woff2",
     "static/media/logo.svg": "/TuringMachineSimulator/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/TuringMachineSimulator/index.html",
-    "main.e1e7cd4a.css.map": "/TuringMachineSimulator/static/css/main.e1e7cd4a.css.map",
-    "main.2fd7d8b1.js.map": "/TuringMachineSimulator/static/js/main.2fd7d8b1.js.map",
+    "main.b104f27c.css.map": "/TuringMachineSimulator/static/css/main.b104f27c.css.map",
+    "main.5364bdd9.js.map": "/TuringMachineSimulator/static/js/main.5364bdd9.js.map",
     "592.7f72a991.chunk.js.map": "/TuringMachineSimulator/static/js/592.7f72a991.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e1e7cd4a.css",
-    "static/js/main.2fd7d8b1.js"
+    "static/css/main.b104f27c.css",
+    "static/js/main.5364bdd9.js"
   ]
 }
