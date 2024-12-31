@@ -2,19 +2,24 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import {
     View, Text,
-    Button, StyleSheet, TextInput, Pressable,
+ StyleSheet, TextInput, Pressable,
 
 } from 'react-native';
 
 import MyButton from '../GeneralComponents/MyButton';
-
+import Button from '@mui/material/Button';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 import TapeViewComponent from './TapeViewComponent';
 import ComputationHistoryComponent from '../ComputationHistoryComponent';
-import { TM, TapeWriter, ComputationResult } from '../TM';
+import { TM, TapeWriter, ComputationResult, MachineSpeed } from '../TM';
 import './Simulator.css';
 import TapeAttribsComponent from './TapeAttribsComponent';
-import InputParameterComponent, { MachineSpeed } from './InputParameterComponent';
+import InputParameterComponent from './InputParameterComponent';
 import {ComputationDisplayComponent, Transition}  from './ComputationDisplayComponent';
+import MachineSettings from './MachineSettings.tsx';
 
 class TransitionRecord {
     curState;
@@ -183,9 +188,22 @@ class ComputationStep {
 }
 
 
+/*
+function updateMachineSettings(newSpeed, changeSpeed, newTransitions, changeTransitions, newLeftTapeSize, newRightTapeSize, tapeWriter) {
+    changeSpeed(newSpeed);
+    changeTransitions(newTransitions);
+    
+    tapeWriter.current.leftTape = new Array(Number(newLeftTapeSize));
+    tapeWriter.current.rightTape = new Array(Number(newRightTapeSize));
+}
+*/
+
 
 
 function MachineSimulatorComponent({ turingMachine, setEdit, allowEdit }) {
+
+
+    //const [displaySettingsModal, changeDisplaySettingsModal] = React.useState(false);
 
     const curTapeWriter = React.useRef(new TapeWriter);
     const [curDisplayTape, changeCurDisplayTape] = React.useState([new TapeWriter(), 
@@ -196,6 +214,21 @@ function MachineSimulatorComponent({ turingMachine, setEdit, allowEdit }) {
     const curComputation = React.useRef();
     const curComputationStep = React.useRef(-1);
     const curTimeCallback = React.useRef(null);
+
+
+    const [machineSpeed, changeCurMachineSpeed] = React.useState(MachineSpeed.MEDIUM);
+    const [maxTransitions, changeCurEditMaxTrans] = React.useState(100);
+    const [leftTapeSize, changeCurLeftTapeSize] = React.useState(0);
+    const [rightTapeSize, changeCurRightTapeSize] = React.useState(0);
+
+
+    const [curMachineSettings, changeCurMachineSettings] = React.useState({
+        machineSpeed: MachineSpeed.FAST,
+        maximumTransitions: 100
+      
+    });
+
+   
 
     if (curComputation.current != undefined) {
         if (curComputationStep.current >= curComputation.current[0].length) {
@@ -238,6 +271,7 @@ function MachineSimulatorComponent({ turingMachine, setEdit, allowEdit }) {
             curTapeWriter.current = { ...curTapeWriter.current, center: newCenter, rightTape: a };
             changeCurDisplayTape([curTapeWriter.current, curDisplayTape[1]]);
         }}
+        speed = {/*curMachineSpeed*/ MachineSpeed.FAST}
         inputAlphabet={(turingMachine != undefined) ? turingMachine.InputAlphabet : []}
         allowEditing={allowEdit}
         compute={function (input, maxTrans, speed) {
@@ -324,23 +358,26 @@ function MachineSimulatorComponent({ turingMachine, setEdit, allowEdit }) {
     }
 
     
+////updateMachineSettings(curMachineSpeed, changeCurMachineSettings, curEditMaxTrans, changeCurEditMaxTrans, curLeftTapeSize, curRightTapeSize, curTapeWriter);
 
     return (
         <div className='machine-simulator'>
             <View className='tape-view' style={{ flexDirection: 'row' }}>
-                <TapeAttribsComponent
-                    leftTapeSize={curTapeWriter.current.leftTape.length}
-                    rightTapeSize={curTapeWriter.current.rightTape.length}
-                    changeLeftTapeSize={function (s) {
-                        curTapeWriter.current.leftTape = Array(s);
-                        changeCurDisplayTape([curTapeWriter.current, curDisplayTape[1]]);
-                    }}
-                    changeRightTapeSize={function (s) {
-                        curTapeWriter.current.rightTape = Array(s);
-                        changeCurDisplayTape([curTapeWriter.current, curDisplayTape[1]]);
 
-                    }}
-                    allowEditing={allowEdit} />
+            <MachineSettings leftTapeSize={leftTapeSize} rightTapeSize={rightTapeSize} 
+            machineSpeed={machineSpeed} maxTransitions={maxTransitions}
+            onChangeSettings = {(leftTapeSize, rightTapeSize, machineSpeed, maxTransitions) => {
+                changeCurMachineSpeed(machineSpeed);
+                changeCurEditMaxTrans(maxTransitions);
+    
+                curTapeWriter.current.leftTape = new Array(Number(leftTapeSize));
+                curTapeWriter.current.rightTape = new Array(Number(rightTapeSize));
+                changeCurLeftTapeSize(leftTapeSize);
+                changeCurRightTapeSize(rightTapeSize);
+            }}>
+            </MachineSettings>
+      
+                
 
                 <TapeViewComponent leftTape={curDisplayTape[0].leftTape} rightTape={curDisplayTape[0].rightTape} centerSpot={curDisplayTape[0].center} headLocation={curDisplayTape[0].headPos}
                     editIndex={curDisplayTape[1].currentEditIndex}

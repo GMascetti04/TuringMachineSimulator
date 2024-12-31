@@ -28,6 +28,9 @@ class TransitionRecord {
 
 }*/
 
+
+
+
 export const ComputationResult = {
 	ACCEPT : 0,
     REJECT : 1,
@@ -38,6 +41,26 @@ export const ComputationResult = {
     NULL : 6
 }
 
+export const MachineSpeed = {
+    STEP_BY_STEP:  0,
+    SLOW: 1,
+    MEDIUM: 2,
+    FAST: 3,
+    INSTANT: 4
+}
+
+export class MachineSettings {
+    machineSpeed;
+    maximumTransitions;
+
+    constructor() {
+        this.machineSpeed = MachineSpeed.MEDIUM;
+        this.maximumTransitions = 0;
+        
+    }
+
+
+}
 
 
 export class TapeWriter {

@@ -1,42 +1,56 @@
 import React from 'react';
 import { useState } from 'react';
-import MyButton from '../GeneralComponents/MyButton';
-import { Switch } from '../GeneralComponents/Switch';
-import {View, Text,
-    Button,StyleSheet, TextInput, Pressable,
-    
-  } from 'react-native';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
- 
+import Switch from '@mui/material/Switch';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import {
+  View, Text,
+  StyleSheet, TextInput, Pressable,
+
+} from 'react-native';
+
+import Button from '@mui/material/Button';
 
 
-  //props.iniitState
-export function StateHeaderComponent({stateName, isInitialState, isFinalState, 
-  showTransitions, changeShowTransitionsfunc, setInitState, setIsFinalState, deleteState, allowEditing} ) {
+//props.iniitState
+export function StateHeaderComponent({ stateName, isInitialState, isFinalState,
+  showTransitions, changeShowTransitionsfunc, setInitState, setIsFinalState, deleteState, allowEditing }) {
 
-    return (
-      <div className='state-header-component'>
-        
-        <button disabled = {!allowEditing} className='state-name-button' type = 'button'><b>{stateName}</b></button>
+  return (
+    <div className='state-header-component'>
 
-        <button className={isInitialState? 'initial-state-btn-true' :'initial-state-btn-false' } type='button' disabled = {isInitialState || !allowEditing} onClick={() => {setInitState(stateName);}}>{isInitialState ?"Initial State" :"Set Initial"}</button>
-        
+      <Button className='state-name-button' disabled={!allowEditing}>{stateName}</Button>
 
-        <Text>Final</Text>
-        <Switch
-        allowEditing={allowEditing}
-        isOn={isFinalState}
-        handleToggle={() => setIsFinalState(!isFinalState)}
-        idnum = {stateName}
-      />
-   
-        <MyButton text = {showTransitions? "hide transitions" : "show transitions"} onPressCallback = {() => {changeShowTransitionsfunc(!showTransitions)}}/>
 
-        <button disabled = {!allowEditing} onClick={() => {deleteState();}}>Delete</button>
-     
-      </div>
-    );
-  }
-  
+
+
+      <Button className={isInitialState ? 'initial-state-btn-true' : 'initial-state-btn-false'} type='button' disabled={isInitialState || !allowEditing} onClick={() => { setInitState(stateName); }}>{isInitialState ? "Initial State" : "Set Initial"}</Button>
+
+
+
+      <FormGroup>
+        <FormControlLabel control={<Switch
+          id={stateName}
+          checked={isFinalState}
+          onChange={(event, isChecked) => setIsFinalState(event.target.checked)}
+
+        />} label="Final State" labelPlacement="top" />
+
+      </FormGroup>
+
+      <Button onClick={() => { changeShowTransitionsfunc(!showTransitions) }}>{showTransitions ? "hide transitions" : "show transitions"} </Button>
+
+      <IconButton color="error" variant="outlined"  disabled={!allowEditing} onClick={() => { deleteState(); }}> <DeleteIcon /></IconButton>
+       
+      
+      
+
+    </div>
+  );
+}
+
 
 

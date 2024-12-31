@@ -10,7 +10,7 @@ import {
 
 import TMEditorComponent from './EditorComponents/TMEditorComponent.js'
 import MachineSimulatorComponent from './SimulatorComponents/MachineSimulator.js';
-import TuringMachineDefinition from './TuringMachineDefinition.js';
+import MenuBar from './GeneralComponents/MenuBar.js';
 
 
 
@@ -45,15 +45,9 @@ function App() {
   return (
     <div>
 
-      <div className='stay'>
-        <View style = {{flexDirection: 'row'}}>
-          <Text>Turing Machine Simulator</Text>
-          
-          <button onClick={() => { changeVewTMDefinition(true); }}>See Definition</button>
-          <TuringMachineDefinition viewDefinitionPopup={viewTMDefinition} changeViewDefinitionPopup={changeVewTMDefinition} />
-          
-        </View>
+      <MenuBar />
 
+      <div className='stay'>
         <MachineSimulatorComponent turingMachine={curTM} setEdit={function (v) {
           changeAllowEdit(v);
         }} allowEdit={allowEdit} />

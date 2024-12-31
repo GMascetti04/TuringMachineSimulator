@@ -19,15 +19,18 @@
 .state-component {
   border-radius: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  width: 500px;
+  width: 900px;
+  display: inline-block;
+
 }
 
 .state-component-final {
   border-radius: 5px;
+  display: inline-block;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   background-color: rgba(0, 255, 64, 0.522);
   box-sizing: content-box;
-  width: 500px;
+  /*width: 900px;*
 
 }
 
@@ -80,11 +83,13 @@
 
 .state-header-component {
   flex-direction: row;
+  
   height: auto;
     padding: 20;
     display: inline-block;
-  width: 100%;
-  display: flex;
+  /*width: 100%;*/
+  width: 900;
+  /*display: flex;*/
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
